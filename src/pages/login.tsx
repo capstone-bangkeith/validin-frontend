@@ -32,7 +32,7 @@ const Login: NextPage = () => {
         loading: 'Loading...',
         success: () => {
           setTimeout(() => router.push('/'), 2000);
-          return 'Logged in !, hellooo 🥰🥰!';
+          return 'Logged in !, hellooo!';
         },
         error: (err: Error | AxiosError<ErrorResponse>) => {
           if (axios.isAxiosError(err)) {
