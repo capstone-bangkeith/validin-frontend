@@ -42,8 +42,9 @@ export default withIronSessionApiRoute(
         break;
       }
       case 'GET': {
+        console.log(`${API_URL}/admin/ktp`);
         const data = await axios.get(`${API_URL}/admin/ktp`);
-
+        console.log(data);
         res.status(data.status).send(data.data);
         break;
       }

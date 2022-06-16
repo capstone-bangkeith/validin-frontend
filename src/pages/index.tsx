@@ -2,46 +2,42 @@ import { withIronSessionSsr } from 'iron-session/next';
 import type { GetServerSideProps, NextPage } from 'next';
 import * as React from 'react';
 import { Toaster } from 'react-hot-toast';
-import { FiCheckCircle, FiTrash2, FiXCircle } from 'react-icons/fi';
 import { Column } from 'react-table';
+import useSWR from 'swr';
 
 import AnimatePage from '@/components/AnimatePage';
-import Button from '@/components/buttons/Button';
 import ReactTable from '@/components/ReactTable';
 import Seo from '@/components/Seo';
 import { COOKIE_OPTIONS } from '@/constant/cookie';
 import { toastStyle } from '@/constant/toast';
 import DashboardLayout from '@/dashboard/layout';
-import clsxm from '@/lib/clsxm';
+
+type Ktp = {
+  nama: string;
+  nik: string;
+  kota: string;
+  provinsi: string;
+  ttl: string;
+  jenis_kelamin: string;
+  alamat: string;
+  rt_rw: string;
+  kel_desa: string;
+  kecamatan: string;
+  agama: string;
+  status_perkawinan: string;
+  pekerjaan: string;
+  kewarganegaraan: string;
+  validated: boolean;
+};
+
+type GetResult = {
+  data: Ktp[];
+};
 
 const Home: NextPage = () => {
-  const data = React.useMemo(
-    () => [
-      {
-        nik: '3569696969696969',
-        nama: 'kodek',
-        kota: 'SURAKARTA',
-        provinsi: 'JEMBER UTARA',
-        ttl: 'JEMBER, 29-02-2020',
-        jenis_kelamin: 'LAKI-LAKI',
-        alamat: 'Jl. Suka suka',
-        rt_rw: '006/009',
-        kel_desa: 'Desa Kntl',
-        kecamatan: 'BADARAWUHI',
-        agama: 'CIANJUR',
-        status_perkawinan: 'KAWIN SILANG',
-        pekerjaan: 'PEKERJAAN',
-        kewarganegaraan: 'WNI',
-        delete: {},
-        verify: {
-          isVerified: true,
-        },
-      },
-    ],
-    []
-  );
+  const { data } = useSWR<GetResult>('/api/admin/ktp');
 
-  const columns = React.useMemo<Column<typeof data[number]>[]>(
+  const columns = React.useMemo<Column<Ktp>[]>(
     () => [
       {
         Header: 'NIK',
@@ -51,30 +47,6 @@ const Home: NextPage = () => {
         Header: 'Nama',
         accessor: 'nama',
       },
-      {
-        accessor: 'delete',
-        Header: 'Delete',
-        Cell: () => (
-          <Button variant='light' className='text-red-500 hover:text-red-600'>
-            <FiTrash2 />
-          </Button>
-        ),
-      },
-      {
-        accessor: 'verify',
-        Header: 'Toggle Verifikasi',
-        Cell: ({ cell }) => (
-          <Button
-            variant='light'
-            className={clsxm(
-              cell.value.isVerified && 'text-red-500 hover:text-red-600',
-              !cell.value.isVerified && 'text-green-500 hover:text-green-600'
-            )}
-          >
-            {cell.value.isVerified ? <FiXCircle /> : <FiCheckCircle />}
-          </Button>
-        ),
-      },
     ],
     []
   );
@@ -83,7 +55,7 @@ const Home: NextPage = () => {
     <DashboardLayout>
       <Seo />
       <AnimatePage>
-        <ReactTable data={data} columns={columns} />
+        {data && <ReactTable data={data.data} columns={columns} />}
       </AnimatePage>
       <Toaster
         toastOptions={{
