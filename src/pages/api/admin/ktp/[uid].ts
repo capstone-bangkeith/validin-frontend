@@ -36,19 +36,22 @@ export default withIronSessionApiRoute(
     const uid = req.query.uid as string;
     switch (method) {
       case 'PUT': {
-        const data = await axios.post(`${API_URL}/admin/ktp/${uid}`, req.body);
-
+        const data = await axios.put(`${API_URL}/admin/ktp/${uid}`, req.body);
+        console.log(data.data);
         res.status(data.status).send(data.data);
         break;
       }
       case 'DELETE': {
-        const data = await axios.post(`${API_URL}/admin/ktp/${uid}`, req.body);
+        const data = await axios.delete(
+          `${API_URL}/admin/ktp/${uid}`,
+          req.body
+        );
 
         res.status(data.status).send(data.data);
         break;
       }
       case 'GET': {
-        const data = await axios.post(`${API_URL}/admin/ktp/${uid}`, req.body);
+        const data = await axios.get(`${API_URL}/admin/ktp/${uid}`, req.body);
 
         res.status(data.status).send(data.data);
         break;

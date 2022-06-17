@@ -31,19 +31,13 @@ export default function ReactTable<T extends object>({
   className,
   withFooter = true,
 }: Props<T>) {
-  const {
-    getTableProps,
-    getTableBodyProps,
-    headerGroups,
-    rows,
-    prepareRow,
-    footerGroups,
-  } = useTable<T>(
-    { ...options, data, columns },
-    useGlobalFilter,
-    useSortBy,
-    ...plugins
-  );
+  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
+    useTable<T>(
+      { ...options, data, columns },
+      useGlobalFilter,
+      useSortBy,
+      ...plugins
+    );
 
   return (
     <div className={clsx('flex w-full flex-col', className)}>
@@ -146,7 +140,7 @@ export default function ReactTable<T extends object>({
               </tbody>
               {withFooter && (
                 <tfoot className='bg-gray-50 dark:bg-gray-700'>
-                  {footerGroups.map((footerGroup, index) => (
+                  {/* {footerGroups.map((footerGroup, index) => (
                     <tr
                       {...footerGroup.getFooterGroupProps()}
                       key={index}
@@ -165,12 +159,12 @@ export default function ReactTable<T extends object>({
                         </td>
                       ))}
                     </tr>
-                  ))}
+                  ))} */}
                   <tr>
                     <td colSpan={columns.length} className='text-center'>
                       <ReactPaginate
                         pageCount={10}
-                        className='mb-8 flex list-none flex-row justify-between px-20'
+                        className='flex list-none flex-row justify-between p-4 px-20'
                       />
                     </td>
                   </tr>

@@ -3245,6 +3245,13 @@ react@18.2.0:
   dependencies:
     loose-envify "^1.1.0"
 
+react-toastify@^9.0.4:
+  version "9.0.4"
+  resolved "https://registry.yarnpkg.com/react-toastify/-/react-toastify-9.0.4.tgz#016d0f3dae2f6e9c01eb36bd1d2c31b0a6de4434"
+  integrity sha512-MYmJ1V5F6DEU+TFxBb+pGGsveFPt4tjr4yK+TopXkU3sXPD9F2tFhX+G2HBLZpqObT2O6Z9jbXSg3JpaxuWtWw==
+  dependencies:
+    clsx "^1.1.1"
+
 read-cache@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/read-cache/-/read-cache-1.0.0.tgz#e664ef31161166c9751cdbe8dbcf86b5fb58f774"

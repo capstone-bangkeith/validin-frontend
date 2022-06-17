@@ -1,8 +1,10 @@
 import '@/styles/globals.css';
+import 'react-toastify/dist/ReactToastify.min.css';
 
 import axios from 'axios';
 import type { AppProps } from 'next/app';
-import { ThemeProvider } from 'next-themes';
+import { ThemeProvider, useTheme } from 'next-themes';
+import { Theme, ToastContainer } from 'react-toastify';
 import { SWRConfig } from 'swr';
 
 declare module 'next-themes' {
@@ -12,6 +14,7 @@ declare module 'next-themes' {
 }
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
+  const { theme } = useTheme();
   return (
     <ThemeProvider attribute='class' defaultTheme='dark' enableSystem={false}>
       <SWRConfig
@@ -20,6 +23,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
         }}
       >
         <Component {...pageProps} />
+        <ToastContainer theme={theme as Theme} />
       </SWRConfig>
     </ThemeProvider>
   );
